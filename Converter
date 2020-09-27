@@ -1,0 +1,128 @@
+package com.company;
+
+import java.util.Scanner;
+
+class Converter {
+       private double usd;
+       private double eur;
+       private double uah;
+
+       String currencyUsd = "usd";
+       String currencyEur = "eur";
+       String currencyUah = "uah";
+
+     public Converter(double usd, double eur, double uah) {
+         this.usd = usd;
+         this.eur = eur;
+         this.uah = uah;
+     }
+
+     public double setUsd() {
+         double usdOfUah = 28.28;
+         return usd = usdOfUah;
+     }
+     public double setEur() {
+         double eurOfUah = 32.89;
+         return eur = eurOfUah;
+     }
+     public double setUah() {
+        return 1;
+     }
+
+     public double getUsd() {
+         return usd;
+     }
+
+     public double getEur() {
+         return eur;
+     }
+
+
+}
+
+
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Converter converter = new Converter(28.28, 32.89, 1);
+        converter.setEur();
+        converter.setUah();
+        converter.setUsd();
+        Scanner in = new Scanner(System.in);
+        boolean quit = false;
+
+        System.out.println("Выберите с какой валютой вы хотите работать eur/usd/uah");
+        while (!quit) {
+            String[] input = in.nextLine().replace(">", "").trim().split(" ");
+            switch (input[0]) {
+
+                case "eur":
+                    System.out.println("Какую опперацию вы хотите провести? " +
+                            "1) Перевод из евро в гривны " +
+                            "2) Перевод из евро в доллары");
+                    int variable = in.nextInt();
+                    if (variable == 1) {
+                        System.out.println("Укажите сумму евро, которую вы хотите перевести в гривны: ");
+                        double sumEur = in.nextDouble();
+                        double answer = sumEur * converter.getEur();
+                        System.out.println("Вывод: " + answer + " " + converter.currencyUah);
+                        break;
+
+                    } else if (variable == 2) {
+                        System.out.println("Укажите сумму евро, которую вы хотите перевести в доллары: ");
+                        double sumEur = in.nextInt();
+                        double answer = sumEur * 1.16;
+                        System.out.println("Вывод: " + answer + " " + converter.currencyUsd);
+                        break;
+
+                    } else break;
+
+                case "usd":
+                    System.out.println("Какую опперацию вы хотите провести? " +
+                            "1) Перевод из доллары в гривны " +
+                            "2) Перевод из доллары в евро");
+                    variable = in.nextInt();
+                    if (variable == 1) {
+                        System.out.println("Укажите сумму долларов, которую вы хотите перевести в гривны ");
+                        double sumUsd = in.nextDouble();
+                        double answer = sumUsd * converter.getUsd();
+                        System.out.println("Вывод: " + answer + " " + converter.currencyUah);
+
+                    } else if (variable == 2) {
+                        System.out.println("Укажите сумму долларов, которую вы хотите перевести в евро: ");
+                        double sumUsd = in.nextInt();
+                        double answer = sumUsd * 0.86;
+                        System.out.println("Вывод: " + answer + " " + converter.currencyEur);
+                        break;
+
+                    } else break;
+
+                case "uah":
+                    System.out.println("Какую опперацию вы хотите провести? " +
+                            "1) Перевод из гривны в доллары " +
+                            "2) Перевод из гривны в евро");
+                    variable = in.nextInt();
+                    if (variable == 1) {
+                        System.out.println("Укажите сумму гривен, которую вы хотите перевести в доллары");
+                        double sumUah = in.nextDouble();
+                        double answer = sumUah * 0.035;
+                        System.out.println("Вывод: " + answer + " " + converter.currencyUsd);
+                        break;
+
+                    } else if (variable == 2) {
+                        System.out.println("Укажите сумму гривен, которую вы хотите перевести в евро");
+                        double sumUah = in.nextDouble();
+                        double answer = sumUah * 0.030;
+                        System.out.println("Вывод: " + answer + " " + converter.currencyEur);
+                        break;
+                    } else break;
+                default:
+                    break;
+            }
+
+        }
+    }
+}
