@@ -1,0 +1,175 @@
+package com.company;
+
+abstract class Student {
+    private String name;
+    private String state;
+
+    public Student(String name) {
+        this.name = name;
+        this.state = "Unknown";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getState() {
+        return state;
+    }
+    public void setName() {
+        if (name != null) {
+            this.name = name;
+        }
+    }
+    public void setState() {
+        if (state != null) {
+            this.state = state;
+        }
+    }
+
+    public void Relax() {
+        state = "Relax";
+    }
+
+    public void Read() {
+        state = "Read";
+    }
+
+    public void Write() {
+        state = "Write";
+    }
+
+    abstract void Study();
+}
+
+class GoodStudent extends Student {
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    public GoodStudent(String state) {
+        super(state);
+        state = "Good";
+    }
+
+    @Override
+    void Study() {
+
+        for(int index = 0; index > 2; index++) {
+            Read();
+            Write();
+        }
+
+        Relax();
+    }
+
+}
+
+class BadStudent extends Student {
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    public BadStudent(String state) {
+        super(state);
+        state = "Bad";
+    }
+
+    @Override
+    void Study() {
+
+        for(int index = 0; index > 4; index++ ) {
+            Relax();
+        }
+
+        Read();
+    }
+
+}
+
+
+package com.company;
+
+import java.util.ArrayList;
+
+class Group {
+   private String nameGroup;
+   ArrayList<Student> students = new ArrayList<>();
+
+   public Group(String nameGroup) {
+               this.nameGroup = nameGroup;
+   }
+
+   public String getNameGroup() {
+        return nameGroup;
+   }
+
+   public String setNameGroup(String nameGroup) {
+       if (nameGroup != null) {
+           this.nameGroup = nameGroup;
+       }
+       return nameGroup;
+   }
+
+   public void addStudent(Student st) {
+               students.add(st);
+   }
+
+   public void getInfo(String nameGroup, Student st) {
+               System.out.println(nameGroup + ": ");
+
+               for(Student value: students) {
+                   System.out.println(st.getName() + " ");
+               }
+
+           }
+   public void getFullInfo(String nameGroup, Student st) {
+               System.out.println(nameGroup + ": ");
+
+               for(Student value: students) {
+                   System.out.print(st.getName() + " ");
+                   System.out.print(st.getState() + ".");
+               }
+
+         }
+
+   }
+
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Group group = new Group("K-27");
+        boolean quit = false;
+
+        System.out.println("Для выхода напишите \"exit\". Заполните список студентов ");
+        System.out.println("Для этого сначала выберите его успешность good/bad , а после напишите имя");
+        while (!quit) {
+            String[] input = in.nextLine().replace(">", "").trim().split(" ");
+            switch (input[0])  {
+                case "good":
+                    String nameOfGood = in.nextLine();
+                    Student goodStudent = new GoodStudent(nameOfGood);
+                    group.addStudent(goodStudent);
+                    break;
+                case "bad":
+                    String nameOfBad = in.nextLine();
+                    Student badStudent = new BadStudent(nameOfBad);
+                    group.addStudent(badStudent);
+                    break;
+                case "exit":
+                    System.out.println("-*- Вы покинули журнал -*-");
+                    quit = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
