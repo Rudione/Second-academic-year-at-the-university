@@ -1,0 +1,140 @@
+package com.company;
+
+public class Triangle {
+
+    private int firstSide;
+    private int secondSide;
+    private int thirdSide;
+
+    public int getFirstSide() {
+        return firstSide;
+    }
+
+    public void setFirstSide(int firstSide) {
+        this.firstSide = firstSide;
+    }
+
+    public int getSecondSide() {
+        return secondSide;
+    }
+
+    public void setSecondSide(int secondSide) {
+        this.secondSide = secondSide;
+    }
+
+    public int getThirdSide() {
+        return thirdSide;
+    }
+
+    public void setThirdSide(int thirdSide) {
+        this.thirdSide = thirdSide;
+    }
+
+    public double calcAngle(int numFirstSide, int numSecondSide, int numThirdSide) {
+        if (firstSide > 0 && secondSide > 0 && thirdSide > 0) {
+        return ((secondSide^2 + thirdSide^2 - firstSide^2)/(2*secondSide*thirdSide));
+        }
+        else return 0;
+    }
+
+    public int perimeter(int firstSide, int secondSide, int thirdSide) {
+        if (firstSide > 0 && secondSide > 0 && thirdSide > 0) {
+            return firstSide + secondSide + thirdSide;
+        }
+        else return 0;
+    }
+}
+
+package com.company;
+
+public class equilateralTriangle extends Triangle {
+    int firstSide = getFirstSide();
+    public double calcArea(int numFirstSide, int numSecondSide, int numThirdSide) {
+        return ((firstSide^2) * 1.7/4);
+    }
+}
+
+package com.company;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class SimpleGUI extends JFrame {
+    private JButton button = new JButton("Кнопка");
+    private JTextField firstSide = new JTextField("", 5);
+    private JTextField secondSide = new JTextField("", 5);
+    private JTextField thirdSide = new JTextField("", 5);
+    private JRadioButton buttonTriangle = new JRadioButton("Обычный");
+    private JRadioButton buttonEquilateralTriangle = new JRadioButton("Равносторонний");
+
+    public SimpleGUI() {
+        super("Вычисление для треугольника");
+        this.setBounds(200, 500, 200, 200);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container container = this.getContentPane();
+        container.setLayout(new GridLayout(6, 2, 6, 8));
+        container.add(firstSide);
+        container.add(secondSide);
+        container.add(thirdSide);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(buttonTriangle);
+        group.add(buttonEquilateralTriangle);
+
+        container.add(buttonTriangle);
+        buttonTriangle.setSelected(true);
+        container.add(buttonEquilateralTriangle);
+
+        button.addActionListener(new ButtonEventListener());
+        container.add(button);
+    }
+
+    class ButtonEventListener implements ActionListener {
+        Triangle triangle = new Triangle();
+        equilateralTriangle equilateralTriangle = new equilateralTriangle();
+
+        public void actionPerformed(ActionEvent e) {
+            String message = "";
+            message += " Первая сторона: " + firstSide.getText() +
+                       " Вторая сторона: " + secondSide.getText() +
+                       " Третяя сторона: " + thirdSide.getText();
+
+            int num1 = Integer.parseInt(firstSide.getText());
+            int num2 = Integer.parseInt(secondSide.getText());
+            int num3 = Integer.parseInt(thirdSide.getText());
+            triangle.setFirstSide(num1);
+            triangle.setSecondSide(num2);
+            triangle.setThirdSide(num3);
+
+            if (buttonTriangle.isSelected()) {
+                message += "\ncos треугольника: ";
+                message += triangle.calcAngle(num1, num2, num3);
+                message += "\nПериметр: ";
+                message += triangle.perimeter(num1, num2, num3);
+            } else {
+
+                    message += "\ncos треугольника: ";
+                    message += triangle.calcAngle(num1, num2, num3);
+                    message += "\nПериметр: ";
+                    message += triangle.perimeter(num1, num2, num3);
+                    message += "\nПлощадь: ";
+                    message += equilateralTriangle.calcArea(num1, num2, num3);
+
+            }
+            JOptionPane.showMessageDialog(null, message, "Output", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+}
+
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+	SimpleGUI gui = new SimpleGUI();
+	gui.setVisible(true);
+
+    }
+}
