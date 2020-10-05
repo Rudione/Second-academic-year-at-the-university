@@ -1,0 +1,104 @@
+package com.company;
+
+public abstract class Triangle {
+
+    float sideA;
+    float sideB;
+    float angle;
+
+    Triangle(float sideA, float sideB, float sideC){
+
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.angle = angle;
+
+    }
+
+    public abstract float getPerimeter();
+
+    public abstract float getArea();
+
+    public abstract void showInfo();
+}
+
+package com.company;
+
+// Прямоугольный треугольник
+public class RectangularTriangle extends Triangle {
+    float sideA;
+    float sideB;
+    float angle;
+
+    RectangularTriangle(float sideA, float sideB, float angle) {
+        super(sideA, sideB, angle);
+
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.angle = angle;
+
+    }
+
+    @Override
+    public float getPerimeter() {
+        final float sideC = (float) Math.sqrt(sideA*sideA + sideB*sideB);
+        return sideA+sideB+sideC;
+    }
+
+    @Override
+    public float getArea() {
+        return sideA*sideB/2;
+    }
+
+    @Override
+    public void showInfo() {
+        System.out.println("Прямоугольный:\n" + "Area: " + getArea() + " Perimeter: " + getPerimeter());
+    }
+}
+
+package com.company;
+
+// Равнобедренный треугольник
+public class IsoscelesTriangle extends Triangle {
+    float sideA;
+    float sideB;
+    float angle;
+
+    IsoscelesTriangle(float sideA, float sideB, float angle) {
+        super(sideA, sideB, angle);
+
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.angle = angle;
+    }
+
+    @Override
+    public float getPerimeter() {
+         float sideC = 2*sideA;
+         return sideA+sideB+sideC;
+    }
+
+    @Override
+    public float getArea() {
+
+         return sideA*sideA/2;
+    }
+
+    @Override
+    public void showInfo() {
+          System.out.println("Равнобедренный:\n" + "Area: " + getArea() + "*sin(" + angle + ")" + " Perimeter: " +
+                                                            getPerimeter() + "*cos(" + angle + ")");
+    }
+}
+
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+       RectangularTriangle rectangularTriangle = new RectangularTriangle(5,10, 60);
+       rectangularTriangle.showInfo();
+
+       IsoscelesTriangle isoscelesTriangle = new IsoscelesTriangle(10, 10, 60);
+       isoscelesTriangle.showInfo();
+    }
+}
