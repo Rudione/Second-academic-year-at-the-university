@@ -1,0 +1,154 @@
+package com.company;
+
+public abstract class Figure {
+    Figure() {
+
+    }
+
+    public abstract float getPerimeter();
+
+    public abstract float getArea();
+
+    public abstract void showInfo();
+}
+
+package com.company;
+
+public class Triangle extends Figure {
+    private float sideA;
+    private float sideB;
+    private float sideC;
+
+    Triangle(float sideA, float sideB, float sideC) {
+        super();
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.sideC = sideC;
+    }
+
+    @Override
+    public float getPerimeter() {
+        return sideA+sideB+sideC;
+    }
+
+    @Override
+    public float getArea() {
+        int p = (int) (sideA + sideB + sideC)/2;
+        return (float) Math.sqrt(p*(p-sideA)*(p-sideB)*(p-sideC));
+    }
+
+    public void showInfo() {
+        System.out.println("Area: " + getArea() + " Perimeter: " + getPerimeter());
+    }
+
+}
+
+package com.company;
+
+public class Rectangle extends Figure{
+    private float sideA;
+    private float sideB;
+
+
+    Rectangle(float sideA, float sideB){
+        super();
+
+        this.sideA = sideA;
+        this.sideB = sideB;
+    }
+
+    @Override
+    public float getPerimeter(){
+
+        return (sideA + sideB)*2;
+    }
+
+    @Override
+    public float getArea(){
+
+        return sideA * sideB;
+    }
+
+    public void showInfo() {
+        System.out.println("Area: " + getArea() + " Perimeter: " + getPerimeter());
+    }
+
+}
+
+package com.company;
+
+public class Rhombus extends Figure {
+   private float diag1;
+   private float diag2;
+   private float sideA;
+
+   Rhombus(float diag1, float diag2, float sideA) {
+       super();
+
+       this.diag1 = diag1;
+       this.diag2 = diag2;
+       this.sideA = sideA;
+   }
+   @Override
+   public float getArea() {
+
+     return diag1*diag2/2;
+   }
+
+   @Override
+   public float getPerimeter() {
+
+     return 4*sideA;
+   }
+
+    public void showInfo() {
+        System.out.println("Area: " + getArea() + " Perimeter: " + getPerimeter());
+    }
+
+}
+
+package com.company;
+
+public class Circle extends Figure {
+  private double radius;
+
+  Circle(float radius) {
+      super();
+      this.radius = radius;
+  }
+
+  @Override
+  public float getArea() {
+      final float pi = (float) Math.PI;
+      return (float) (pi*radius*radius);
+  }
+
+  @Override
+  public float getPerimeter() {
+      return 0;
+  }
+
+  public float getLength() {
+      return (float) (2*Math.PI*radius);
+  }
+
+    public void showInfo() {
+        System.out.println("Area: " + getArea() + " В круге нет периметра... Но... держите длину окружности :) : " + getLength());
+    }
+}
+
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+     Triangle triangle = new Triangle(20, 21, 9);
+     triangle.showInfo();
+     Rectangle rectangle = new Rectangle(2, 6);
+     rectangle.showInfo();
+     Rhombus rhombus = new Rhombus(5, 4, 8);
+     rhombus.showInfo();
+     Circle circle = new Circle(6);
+     circle.showInfo();
+    }
+}
